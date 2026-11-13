@@ -43,6 +43,19 @@
         in
         named // { deephaven = named.${attrName latest}; default = named.${attrName latest}; });
 
+      # `nix run .#add-version -- 42.10` prefetches a release and adds it to versions.json.
+      # Run it from inside a checkout of this repo; it brings its own jq, git and nix.
+      apps = forAllSystems (pkgs: {
+        add-version = {
+          type = "app";
+          program = lib.getExe (pkgs.writeShellApplication {
+            name = "add-version";
+            runtimeInputs = [ pkgs.jq pkgs.git pkgs.nix pkgs.coreutils ];
+            text = builtins.readFile ./scripts/add-version.sh;
+          });
+        };
+      });
+
       checks = forAllSystems (pkgs: {
         # Exercises the parameterized path end to end with the latest bundled version.
         parameterized = mkDeephaven { inherit pkgs; version = latest; hash = versions.${latest}; };

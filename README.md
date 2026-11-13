@@ -15,7 +15,8 @@ inputs.deephaven.packages.${system}.deephaven-42_8
 `packages.<system>.deephaven-42_8`, `deephaven-42_7`, ... and `deephaven`/`default` (newest).
 Also `overlays.default` which adds `pkgs.deephaven` and `pkgs.deephavenVersions."42.8"`.
 
-Available versions are listed in `versions.json`. Add one with `scripts/add-version.sh <version>`.
+Available versions are listed in `versions.json`. Add one with `nix run .#add-version -- <version>`
+(brings its own `jq`; run it from a checkout of this repo).
 
 ## 2. Parameterized: pick your own version and hash
 
