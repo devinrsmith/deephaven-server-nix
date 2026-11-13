@@ -45,3 +45,13 @@ Everything in the root is installed (only `bin/start.bat` is removed). Options f
 
 - `strict = false` installs whatever the tarball contains, without checking.
 - `expectedRoot = [ "bin" "etc" "lib" "newdir" ]` updates the allowed set.
+
+## Updating `flake.lock`
+
+`flake.lock` pins the `nixpkgs` revision used when building from this repo. Refresh it with:
+
+```sh
+nix flake update
+```
+
+Consumers use their own lock file (and `inputs.nixpkgs.follows`), so this only affects this repo.
