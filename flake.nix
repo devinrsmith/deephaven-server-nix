@@ -8,7 +8,7 @@
       inherit (nixpkgs) lib;
       systems = lib.systems.flakeExposed;
 
-      versions = import ./versions.nix;
+      versions = builtins.fromJSON (builtins.readFile ./versions.json);
       # The newest bundled version: highest by version-aware comparison.
       latest = lib.last (lib.sort (a: b: lib.versionOlder a b) (lib.attrNames versions));
 
